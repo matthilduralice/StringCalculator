@@ -1,0 +1,115 @@
+package CodingKata;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class StringCalculator {
+	
+	
+	
+	public static final int MAX = 1000;
+	
+	public int add(String numbers) {
+        
+		if(numbers.equals("")){
+			
+			return 0;
+		}
+		
+		
+		List<Integer> numberList = stringToInt(numbers);
+		
+        NegativesNotAllowed(numberList);
+        
+        List<Integer> newNumList = IgnoreBigNumbers(numberList);
+        
+        
+        return sum(newNumList);
+    }
+
+	
+    private List<Integer> stringToInt(String s) {
+    	 
+    	 List<Integer> l = new ArrayList<Integer>();
+    	 String[] num = s.split("[\n,.:;*//+-?!]");
+    	 
+    	 
+    	 if(num.length > 2){
+    		 
+    		 throw new IllegalArgumentException("numbers to small");
+    	 }
+    	 
+    	 else{
+    		 
+    		 for(int i = 0; i < num.length; i++){
+    			 
+    			 l.add(Integer.parseInt(num[i]));
+    		 }
+    	 }
+    	 
+    	 
+    	 return l;
+    }
+    
+    
+    private void NegativesNotAllowed(List<Integer> num){
+        
+    	
+    	List<Integer> n = new ArrayList<Integer>();
+    	
+        
+        for(Integer i : num){
+        	
+            if (i < 0){
+            	
+                n.add(i);
+            }
+            
+        }
+        if(!n.isEmpty()){
+        	
+            throw new IllegalArgumentException("Negatives not allowed : " + n);
+        }
+        
+    }
+    
+    private List<Integer> IgnoreBigNumbers(List<Integer> list){
+       
+    	
+    	List<Integer> IgnoreBigNumb = new ArrayList<Integer>();
+    	
+    	
+        for(Integer num : list){
+        	
+            if(MAX >= num){
+            	
+            	IgnoreBigNumb.add(num);
+            }
+        }
+        
+        
+        return IgnoreBigNumb;
+    }
+    
+    private int sum(List<Integer> numbers) {
+        
+    	
+    	int sum = 0;
+        
+    	
+        for (Integer num : numbers){
+        	
+            sum += num;
+        }
+        
+        return sum;
+    }
+    
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+
+	}
+
+}
